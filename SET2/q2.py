@@ -1,33 +1,49 @@
-# Given lists
-Product_IDs = [1001, 1002, 1003, 1004, 1005]
-Prices = [250, 450, 300, 800, 150]
+def reverse_words(sentence):
+    """Reverse the words in a sentence."""
+    words = sentence.split()
+    reversed_sentence = ' '.join(reversed(words))
+    return reversed_sentence
 
-# a) Generate a dictionary ProductPriceDict by mapping Product_IDs to Prices
-ProductPriceDict = dict(zip(Product_IDs, Prices))
-print("ProductPriceDict:", ProductPriceDict)
+def count_word_occurrences(paragraph):
+    """Count the occurrences of each word in a paragraph."""
+    word_count = {}
+    words = paragraph.split()
+    for word in words:
+        word = word.lower().strip(".,!?")  # Normalize words
+        word_count[word] = word_count.get(word, 0) + 1
+    return word_count
 
-# b) Find the price of the most expensive product without using any built-in functions
-max_price = -1  # Initialize with a very low value
-for price in Prices:
-    if price > max_price:
-        max_price = price
-print("Price of the most expensive product:", max_price)
+def replace_word(paragraph, old_word, new_word):
+    """Replace all occurrences of a specific word in a paragraph."""
+    return paragraph.replace(old_word, new_word)
 
-# c) Write a function to get the price of a product by its ID
-def get_price_by_id(product_id):
-    if product_id in ProductPriceDict:
-        return ProductPriceDict[product_id]
-    else:
-        return "Invalid Product ID"
+def menu():
+    """Menu-driven application."""
+    while True:
+        print("\nMenu:")
+        print("1. Reverse the words in a sentence")
+        print("2. Count occurrences of each word in a paragraph")
+        print("3. Find and replace all occurrences of a specific word in a paragraph")
+        print("4. Exit")
+        
+        choice = input("Enter your choice: ")
+        if choice == "1":
+            sentence = input("Enter a sentence: ")
+            print("Reversed Sentence:", reverse_words(sentence))
+        elif choice == "2":
+            paragraph = input("Enter a paragraph: ")
+            word_count = count_word_occurrences(paragraph)
+            print("Word Count:", word_count)
+        elif choice == "3":
+            paragraph = input("Enter a paragraph: ")
+            old_word = input("Enter the word to replace: ")
+            new_word = input("Enter the new word: ")
+            print("Modified Paragraph:", replace_word(paragraph, old_word, new_word))
+        elif choice == "4":
+            print("Exiting program...")
+            break
+        else:
+            print("Invalid choice. Please try again.")
 
-# Example usage of the function
-product_id_to_check = 1004
-print(f"Price of Product ID {product_id_to_check}:", get_price_by_id(product_id_to_check))
-
-# d) Function to validate a product ID and return its price or an error message
-def validate_and_get_price(product_id):
-    return ProductPriceDict.get(product_id, "Invalid Product ID")
-
-# Example usage of the function
-product_id_to_check = 1006
-print(f"Validation result for Product ID {product_id_to_check}:", validate_and_get_price(product_id_to_check))
+# Run the menu
+menu()
